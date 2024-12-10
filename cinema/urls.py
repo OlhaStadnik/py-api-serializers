@@ -1,8 +1,16 @@
-from django.contrib import admin
-from cinema.models import CinemaHall, Genre, Actor, Movie, MovieSession
+from django.urls import path, include
+from rest_framework import routers
+from rest_framework.urls import app_name
 
-admin.site.register(CinemaHall)
-admin.site.register(Genre)
-admin.site.register(Actor)
-admin.site.register(Movie)
-admin.site.register(MovieSession)
+from cinema.views import GenreViewSet, ActorViewSet, CinemaHallViewSet, MovieViewSet, MovieSessionViewSet
+
+router = routers.DefaultRouter()
+router.register("genre", GenreViewSet)
+router.register("actor", ActorViewSet)
+router.register("cinema_hall", CinemaHallViewSet)
+router.register("movie", MovieViewSet)
+router.register("movie_session", MovieSessionViewSet)
+
+urlpatterns = [
+    path("", include(router.urls)),
+]
